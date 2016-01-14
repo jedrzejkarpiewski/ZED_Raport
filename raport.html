@@ -67,18 +67,217 @@ img {
 </div>
 
 
-<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
-<pre class="r"><code>summary(cars)</code></pre>
-<pre><code>##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00</code></pre>
-<p>You can also embed plots, for example:</p>
-<p><img src="data:image/png;base64,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" /><br /> Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
+<p>Na początku pliku powinna znajdować się automatycznie wypełniona data generacji dokumentu oraz spis treści pozwalający przejść do najważniejszych sekcji. Ponadto raport powinien zaczynać się od rozdziału podsumowującego całą analizę, streszczającego najważniejsze zauważone rzeczy. Po wstępie, raport powinien zawierać następujące elementy:</p>
+<ol style="list-style-type: decimal">
+<li>Kod wyliczający wykorzystane biblioteki;</li>
+</ol>
+<pre class="r"><code>search()</code></pre>
+<pre><code>##  [1] &quot;.GlobalEnv&quot;        &quot;package:ggplot2&quot;   &quot;package:dplyr&quot;    
+##  [4] &quot;package:stats&quot;     &quot;package:graphics&quot;  &quot;package:grDevices&quot;
+##  [7] &quot;package:utils&quot;     &quot;package:datasets&quot;  &quot;package:methods&quot;  
+## [10] &quot;Autoloads&quot;         &quot;package:base&quot;</code></pre>
+<p>2.Kod zapewniający powtarzalność wyników przy każdym uruchomieniu raportu na tych samych danych;</p>
+<p>-cache???</p>
+<p>3.Kod pozwalający wczytać dane z pliku;</p>
+<pre class="r"><code>data &lt;- read.csv(file=&quot;1000.txt&quot;,head=TRUE,sep=&quot;;&quot;)</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Kod usuwający z danych wiersze posiadające wartość zmiennej res_name równą: “DA”,“DC”,“DT”, “DU”, “DG”, “DI”,“UNK”, “UNX”, “UNL”, “PR”, “PD”, “Y1”, “EU”, “N”, “15P”, “UQ”, “PX4” lub “NAN”;</li>
+</ol>
+<pre class="r"><code>data &lt;- filter(data, res_name != &quot;DA&quot;, res_name != &quot;DC&quot;,res_name != &quot;DT&quot;, res_name != &quot;DU&quot;, res_name != &quot;DG&quot;, res_name != &quot;DI&quot;,res_name != &quot;UNK&quot;, res_name != &quot;UNX&quot;, res_name != &quot;UNL&quot;, res_name != &quot;PR&quot;, res_name != &quot;PD&quot;, res_name != &quot;Y1&quot;, res_name != &quot;EU&quot;, res_name != &quot;N&quot;, res_name != &quot;15P&quot;, res_name != &quot;UQ&quot;, res_name != &quot;PX4&quot;,res_name != &quot;NAN&quot;)</code></pre>
+<p>5.Kod pozostawiający tylko unikatowe pary wartości (pdb_code, res_name)</p>
+<pre class="r"><code>clean_data &lt;- distinct(data, pdb_code, res_name)
+#head(clean_data, 10)</code></pre>
+<p>6.Krótkie podsumowanie wartości w każdej kolumnie;</p>
+<pre class="r"><code># knitr::kable(summary(data))
+# summary(data)</code></pre>
+<p>7.Sekcje sprawdzającą korelacje między zmiennymi; sekcja ta powinna zawierać jakąś formę graficznej prezentacji korelacji;</p>
+<pre class="r"><code>#wykonać funkcję cor() na wszystkich parach kolumn &quot;zielonych&quot;
+#pocisnac te kolumny foreachem?</code></pre>
+<p>8.Określenie ile przykładów ma każda z klas (res_name);</p>
+<pre class="r"><code>count_data &lt;- count(clean_data, res_name)
+arrange(count_data, desc(n))</code></pre>
+<pre><code>## Source: local data frame [169 x 2]
+## 
+##    res_name     n
+##      (fctr) (int)
+## 1       SO4    33
+## 2        CA    27
+## 3       GOL    23
+## 4        ZN    22
+## 5        MG    15
+## 6        CL    12
+## 7       NAG    12
+## 8       EDO    10
+## 9       PO4     9
+## 10      HEM     8
+## ..      ...   ...</code></pre>
+<p>9.Wykresy rozkładów liczby atomów (local_res_atom_non_h_count) i elektronów (local_res_atom_non_h_electron_sum);</p>
+<pre class="r"><code>atoms_data &lt;- count(clean_data, local_res_atom_non_h_count)
+#atoms_data
+ggplot(atoms_data, 
+  mapping=aes(
+      x=local_res_atom_non_h_count, 
+      y=n) 
+) + geom_bar(stat=&quot;identity&quot;) + xlab(&quot;Liczba atomów&quot;) + ylab(&quot;Krotność występowania&quot;) </code></pre>
+<p><img src="data:image/png;base64,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" /><br /></p>
+<pre class="r"><code>  #+
+  #scale_x_continuous(breaks = seq(0, 30, 1)) +
+  #scale_y_continuous(breaks = seq(0, 30, 1))
+
+electrons_data &lt;- count(clean_data, local_res_atom_non_h_electron_sum)
+#electrons_data
+ggplot(electrons_data, 
+  mapping=aes(
+      x=local_res_atom_non_h_electron_sum, 
+      y=n) 
+) + geom_bar(stat=&quot;identity&quot;) + xlab(&quot;Liczba elektronów&quot;) + ylab(&quot;Krotność występowania&quot;) </code></pre>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAqAAAAHgCAMAAABNUi8GAAAA6lBMVEUAAAAAADoAAGYAOjoAOpAAZmYAZpAAZrYzMzM6AAA6ADo6AGY6OgA6Ojo6OpA6kNtNTU1NTW5NTY5NbqtNjshZWVlmAABmADpmAGZmtttmtv9uTU1uTW5uTY5ubo5ubqtuq+SOTU2OTW6OTY6Obk2OyP+QOgCQOjqQZgCQkDqQkGaQkNuQtpCQ27aQ2/+rbk2rbm6ryKur5OSr5P+2ZgC2Zma225C22/+2/7a2///Ijk3I///bkDrb2//b/7bb///kq27k///r6+v/tmb/yI7/25D/27b/29v/5Kv//7b//8j//9v//+T///+27QITAAAACXBIWXMAAA7DAAAOwwHHb6hkAAASWUlEQVR4nO2dDXvayBVGSZrWcbatyTqiW2fTOElN2+027tb0IzFtbGO3YKz//3eqERIg0JVGEkhvkvM+eWIhDYcLHGYkIaReSIhwel0XQEhREJRIB0GJdBCUSAdBiXQQlEinsqA3OcmdWSUAAGwAEBSANABBAUgDEBSANABBAUgDEBSANABBAUgDEBSANABBAUgDEBSANABBAUgDEBSANABBAUgDEBSANABBAUgDEBSANABBAUgDEBSANABBAUgDdAQNArGXBoACAEEBSAMQFIA0AEEBSAMQFIA0AEEBSAMQFIA0AEEBSAMQFIA0AEEBSAMQFIA0AEEBSAMQFIA0AEEBSAMQFIA0AEEBSAMQFIA0AEEBSAMQFIA0AEEBSAMQFIA0oLagO08QdF0BEQ49KABJAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpAIICkAYgKABpgJ+gt/3+t5dheP+mf3yNoABaBHgJOn11GV69CB/Oz9wfBAXQHsB7iI8kvX93GbuKoABaA3gLGnWd09fX4f3bizB8GqWsfSaBTxuf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" /><br /></p>
+<pre class="r"><code>  #+
+  #scale_x_continuous(breaks = seq(0, 30, 1)) +
+  #scale_y_continuous(breaks = seq(0, 30, 1))</code></pre>
+<p>10.Próbę odtworzenia następującego wykresu (oś X - liczba elektronów, oś y - liczba atomów):</p>
+<p>11.Tabelę pokazującą 10 klas z największą niezgodnością liczby atomów (local_res_atom_non_h_count vs dict_atom_non_h_count) i tabelę pokazującą 10 klas z największą niezgodnością liczby elektronów (local_res_atom_non_h_electron_sum vs dict_atom_non_h_electron_sum;)</p>
+<pre class="r"><code>diff_between_expected_atoms &lt;- select(clean_data, res_name, local_res_atom_non_h_count, dict_atom_non_h_count) %&gt;%
+mutate(diff = abs(local_res_atom_non_h_count - dict_atom_non_h_count), diff_squared = diff*diff) %&gt;%
+group_by(res_name) %&gt;% 
+  summarize(difference_mean = mean(diff), standard_deviation = sqrt(mean(diff_squared))) %&gt;%
+  arrange(desc(standard_deviation),desc(difference_mean))
+
+knitr::kable(head(diff_between_expected_atoms,10), col.names = c(&quot;Nazwa ligandu&quot;,&quot;Średnia różnica od wartości oczekiwanej&quot;,&quot;Odchylenie standardowe&quot;), caption = &quot;Tabela przedstawiająca 10 klas z największą niezgodnością liczby atomów (sort po odchyleniu standardowym).&quot;)</code></pre>
+<table>
+<caption>Tabela przedstawiająca 10 klas z największą niezgodnością liczby atomów (sort po odchyleniu standardowym).</caption>
+<thead>
+<tr class="header">
+<th align="left">Nazwa ligandu</th>
+<th align="right">Średnia różnica od wartości oczekiwanej</th>
+<th align="right">Odchylenie standardowe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">UTP</td>
+<td align="right">16.000000</td>
+<td align="right">16.000000</td>
+</tr>
+<tr class="even">
+<td align="left">CPS</td>
+<td align="right">6.000000</td>
+<td align="right">6.000000</td>
+</tr>
+<tr class="odd">
+<td align="left">EPE</td>
+<td align="right">3.333333</td>
+<td align="right">5.773503</td>
+</tr>
+<tr class="even">
+<td align="left">NDP</td>
+<td align="right">1.600000</td>
+<td align="right">3.577709</td>
+</tr>
+<tr class="odd">
+<td align="left">ATP</td>
+<td align="right">0.800000</td>
+<td align="right">1.788854</td>
+</tr>
+<tr class="even">
+<td align="left">AAL</td>
+<td align="right">1.000000</td>
+<td align="right">1.000000</td>
+</tr>
+<tr class="odd">
+<td align="left">ABA</td>
+<td align="right">1.000000</td>
+<td align="right">1.000000</td>
+</tr>
+<tr class="even">
+<td align="left">BGC</td>
+<td align="right">1.000000</td>
+<td align="right">1.000000</td>
+</tr>
+<tr class="odd">
+<td align="left">BRU</td>
+<td align="right">1.000000</td>
+<td align="right">1.000000</td>
+</tr>
+<tr class="even">
+<td align="left">BSA</td>
+<td align="right">1.000000</td>
+<td align="right">1.000000</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>diff_between_expected_electrons &lt;- select(clean_data, res_name, local_res_atom_non_h_electron_sum, dict_atom_non_h_electron_sum) %&gt;%
+mutate(diff = abs(local_res_atom_non_h_electron_sum - dict_atom_non_h_electron_sum), diff_squared = diff*diff) %&gt;%
+group_by(res_name) %&gt;% 
+  summarize(difference_mean = mean(diff), standard_deviation = sqrt(mean(diff_squared))) %&gt;%
+  arrange(desc(standard_deviation),desc(difference_mean))
+
+knitr::kable(head(diff_between_expected_electrons,10), col.names = c(&quot;Nazwa ligandu&quot;,&quot;Średnia różnica od wartości oczekiwanej&quot;,&quot;Odchylenie standardowe&quot;), caption = &quot;Tabela przedstawiająca 10 klas z największą niezgodnością liczby elektronów (sort po odchyleniu standardowym).&quot;)</code></pre>
+<table>
+<caption>Tabela przedstawiająca 10 klas z największą niezgodnością liczby elektronów (sort po odchyleniu standardowym).</caption>
+<thead>
+<tr class="header">
+<th align="left">Nazwa ligandu</th>
+<th align="right">Średnia różnica od wartości oczekiwanej</th>
+<th align="right">Odchylenie standardowe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">UTP</td>
+<td align="right">108.00000</td>
+<td align="right">108.00000</td>
+</tr>
+<tr class="even">
+<td align="left">CPS</td>
+<td align="right">52.00000</td>
+<td align="right">52.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">EPE</td>
+<td align="right">21.33333</td>
+<td align="right">36.95042</td>
+</tr>
+<tr class="even">
+<td align="left">NDP</td>
+<td align="right">10.20000</td>
+<td align="right">22.80789</td>
+</tr>
+<tr class="odd">
+<td align="left">ATP</td>
+<td align="right">7.80000</td>
+<td align="right">17.44133</td>
+</tr>
+<tr class="even">
+<td align="left">CPT</td>
+<td align="right">17.00000</td>
+<td align="right">17.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">AAL</td>
+<td align="right">8.00000</td>
+<td align="right">8.00000</td>
+</tr>
+<tr class="even">
+<td align="left">ABA</td>
+<td align="right">8.00000</td>
+<td align="right">8.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">BGC</td>
+<td align="right">8.00000</td>
+<td align="right">8.00000</td>
+</tr>
+<tr class="even">
+<td align="left">BRU</td>
+<td align="right">8.00000</td>
+<td align="right">8.00000</td>
+</tr>
+</tbody>
+</table>
+<p>12.Sekcję pokazującą rozkład wartości wszystkich kolumn zaczynających się od part_01 z zaznaczeniem (graficznym i liczbowym) średniej wartości;</p>
+<p>13.Sekcję sprawdzającą czy na podstawie wartości innych kolumn można przewidzieć liczbę elektronów i atomów oraz z jaką dokładnością można dokonać takiej predykcji; trafność regresji powinna zostać oszacowana na podstawie miar R^2 i RMSE;</p>
+<p>14.Sekcję próbującą stworzyć klasyfikator przewidujący wartość atrybutu res_name (w tej sekcji należy wykorzystać wiedzę z pozostałych punktów oraz wykonać dodatkowe czynności, które mogą poprawić trafność klasyfikacji); klasyfikator powinien być wybrany w ramach optymalizacji parametrów na zbiorze walidującym; przewidywany błąd na danych z reszty populacji powinien zostać oszacowany na danych inne niż uczące za pomocą mechanizmu (stratyfikowanej!) oceny krzyżowej lub (stratyfikowanego!) zbioru testowego.</p>
 
 
 </div>

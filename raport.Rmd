@@ -4,56 +4,63 @@ author: "Jedrzej Karpiewski"
 date: "11 stycznia 2016"
 output:
   html_document:
+    toc: true
     keep_md: yes
   pdf_document: default
 ---
+
+## Wstêpne podsumowanie i wnioski.
+
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 library(dplyr)
 library(ggplot2)
+library(RColorBrewer)
+library(gridExtra)
 ```
-Na pocz¹tku pliku powinna znajdowaæ siê automatycznie wype³niona data generacji dokumentu oraz spis treœci pozwalaj¹cy przejœæ do najwa¿niejszych sekcji. Ponadto raport powinien zaczynaæ siê od rozdzia³u podsumowuj¹cego ca³¹ analizê, streszczaj¹cego najwa¿niejsze zauwa¿one rzeczy. Po wstêpie, raport powinien zawieraæ nastêpuj¹ce elementy:
 
-1. Kod wyliczaj¹cy wykorzystane biblioteki;
+## Zad 1. Kod wyliczaj¹cy wykorzystane biblioteki.
 ```{r}
 search()
 ```
-2.Kod zapewniaj¹cy powtarzalnoœæ wyników przy ka¿dym uruchomieniu raportu na tych samych danych;
-
--cache???
-
-3.Kod pozwalaj¹cy wczytaæ dane z pliku;
+## Zad 2.Kod zapewniaj¹cy powtarzalnoœæ wyników przy ka¿dym uruchomieniu raportu na tych samych danych.
 ```{r}
-data <- read.csv(file="1000.txt",head=TRUE,sep=";")
+set.seed(997)
 ```
-4. Kod usuwaj¹cy z danych wiersze posiadaj¹ce wartoœæ zmiennej res_name równ¹: “DA”,“DC”,“DT”, “DU”, “DG”, “DI”,“UNK”, “UNX”, “UNL”, “PR”, “PD”, “Y1”, “EU”, “N”, “15P”, “UQ”, “PX4” lub “NAN”;
+
+## Zad 3.Kod pozwalaj¹cy wczytaæ dane z pliku.
+```{r}
+data <- read.csv(file="input_data.txt",head=TRUE,sep=";")
+```
+## Zad 4. Kod usuwaj¹cy z danych wiersze posiadaj¹ce wartoœæ zmiennej res_name równ¹: “DA”,“DC”,“DT”, “DU”, “DG”, “DI”,“UNK”, “UNX”, “UNL”, “PR”, “PD”, “Y1”, “EU”, “N”, “15P”, “UQ”, “PX4” lub “NAN”.
 ```{r}
 data <- filter(data, res_name != "DA", res_name != "DC",res_name != "DT", res_name != "DU", res_name != "DG", res_name != "DI",res_name != "UNK", res_name != "UNX", res_name != "UNL", res_name != "PR", res_name != "PD", res_name != "Y1", res_name != "EU", res_name != "N", res_name != "15P", res_name != "UQ", res_name != "PX4",res_name != "NAN")
 ```
-5.Kod pozostawiaj¹cy tylko unikatowe pary wartoœci (pdb_code, res_name)
+## Zad 5.Kod pozostawiaj¹cy tylko unikatowe pary wartoœci (pdb_code, res_name).
 ```{r}
 clean_data <- distinct(data, pdb_code, res_name)
+#clean_data <- distinct(data, pdb_code, res_name)
 #head(clean_data, 10)
 ```
-6.Krótkie podsumowanie wartoœci w ka¿dej kolumnie;
+## Zad 6.Krótkie podsumowanie wartoœci w ka¿dej kolumnie.
 ```{r}
 # knitr::kable(summary(data))
 # summary(data)
 ```
 
-7.Sekcje sprawdzaj¹c¹ korelacje miêdzy zmiennymi; sekcja ta powinna zawieraæ jak¹œ formê graficznej prezentacji korelacji;
+## Zad 7.Sekcje sprawdzaj¹c¹ korelacje miêdzy zmiennymi. Sekcja ta powinna zawieraæ jak¹œ formê graficznej prezentacji korelacji.
 ```{r}
 #wykonaæ funkcjê cor() na wszystkich parach kolumn "zielonych"
 #pocisnac te kolumny foreachem?
 ```
 
-8.Okreœlenie ile przyk³adów ma ka¿da z klas (res_name);
+## Zad 8.Okreœlenie ile przyk³adów ma ka¿da z klas (res_name).
 ```{r}
 count_data <- count(clean_data, res_name)
 arrange(count_data, desc(n))
 ```
 
-9.Wykresy rozk³adów liczby atomów (local_res_atom_non_h_count) i elektronów (local_res_atom_non_h_electron_sum);
-```{r}
+## Zad 9.Wykresy rozk³adów liczby atomów (local_res_atom_non_h_count) i elektronów (local_res_atom_non_h_electron_sum).
+```{r, cache=TRUE}
 atoms_data <- count(clean_data, local_res_atom_non_h_count)
 #atoms_data
 ggplot(atoms_data, 
@@ -77,12 +84,40 @@ ggplot(electrons_data,
   #scale_y_continuous(breaks = seq(0, 30, 1))
 ```
 
-10.Próbê odtworzenia nastêpuj¹cego wykresu (oœ X - liczba elektronów, oœ y - liczba atomów): 
-
-
-11.Tabelê pokazuj¹c¹ 10 klas z najwiêksz¹ niezgodnoœci¹ liczby atomów (local_res_atom_non_h_count vs dict_atom_non_h_count) i tabelê pokazuj¹c¹ 10 klas z najwiêksz¹ niezgodnoœci¹ liczby elektronów (local_res_atom_non_h_electron_sum vs dict_atom_non_h_electron_sum;)
-
+## Zad 10.Próbê odtworzenia nastêpuj¹cego wykresu (oœ X - liczba elektronów, oœ y - liczba atomów).
 ```{r}
+spectral_colors <- colorRampPalette(rev(RColorBrewer::brewer.pal(11, "Spectral")))
+spectral_scale_fill <- scale_fill_gradientn(colours = spectral_colors(32))
+
+empty_theme <- theme(axis.line=element_blank(), axis.text.x=element_blank(),
+          axis.text.y=element_blank(), axis.ticks=element_blank(),
+          axis.title.x=element_blank(), axis.title.y=element_blank(), 
+          panel.background=element_blank(), panel.border=element_blank(), panel.grid.major=element_blank(),
+          panel.grid.minor=element_blank(), plot.background=element_blank())
+
+  
+density_both_plot <- ggplot(data = clean_data, 
+                            mapping = aes(x = local_res_atom_non_h_electron_sum, y = local_res_atom_non_h_count)) + 
+  stat_density2d(mapping = aes(fill = ..density..), contour = FALSE, geom = "tile", n = 150) + 
+  spectral_scale_fill + theme_classic() + 
+  theme(panel.background = element_rect(fill = "#5E4FA2"), legend.position="NONE", axis.title.x = element_blank(), axis.title.y = element_blank()) + 
+  scale_x_continuous(expand = c(0, 0)) + 
+  scale_y_continuous(expand = c(0, 0))
+
+density_atom_plot <- ggplot(data = clean_data, mapping = aes(local_res_atom_non_h_count)) + stat_bin(colour = "black", fill = "red", geom="bar", binwidth=2) + empty_theme + coord_flip(c(0, 120))
+
+density_electron_plot <- ggplot(data = clean_data, mapping = aes(local_res_atom_non_h_electron_sum)) + stat_bin(colour = "black", fill = "red", geom="bar", binwidth=4) + empty_theme
+
+empty_plot <- ggplot(data = data.frame(x = c(0))) + theme(panel.background=element_rect(fill = "white"))
+
+grid.arrange(density_electron_plot, empty_plot, density_both_plot, density_atom_plot, ncol=2, nrow=2, widths=c(4, 1), 
+                 heights=c(1, 4))
+
+```
+
+## Zad 11.Tabelê pokazuj¹c¹ 10 klas z najwiêksz¹ niezgodnoœci¹ liczby atomów (local_res_atom_non_h_count vs dict_atom_non_h_count) i tabelê pokazuj¹c¹ 10 klas z najwiêksz¹ niezgodnoœci¹ liczby elektronów (local_res_atom_non_h_electron_sum vs dict_atom_non_h_electron_sum;).
+
+```{r, cache=TRUE}
 diff_between_expected_atoms <- select(clean_data, res_name, local_res_atom_non_h_count, dict_atom_non_h_count) %>%
 mutate(diff = abs(local_res_atom_non_h_count - dict_atom_non_h_count), diff_squared = diff*diff) %>%
 group_by(res_name) %>% 
@@ -102,8 +137,8 @@ group_by(res_name) %>%
 knitr::kable(head(diff_between_expected_electrons,10), col.names = c("Nazwa ligandu","Œrednia ró¿nica od wartoœci oczekiwanej","Odchylenie standardowe"), caption = "Tabela przedstawiaj¹ca 10 klas z najwiêksz¹ niezgodnoœci¹ liczby elektronów (sort po odchyleniu standardowym).")
 ```
 
-12.Sekcjê pokazuj¹c¹ rozk³ad wartoœci wszystkich kolumn zaczynaj¹cych siê od part_01 z zaznaczeniem (graficznym i liczbowym) œredniej wartoœci;
+## Zad 12.Sekcjê pokazuj¹c¹ rozk³ad wartoœci wszystkich kolumn zaczynaj¹cych siê od part_01 z zaznaczeniem (graficznym i liczbowym) œredniej wartoœci.
 
-13.Sekcjê sprawdzaj¹c¹ czy na podstawie wartoœci innych kolumn mo¿na przewidzieæ liczbê elektronów i atomów oraz z jak¹ dok³adnoœci¹ mo¿na dokonaæ takiej predykcji; trafnoœæ regresji powinna zostaæ oszacowana na podstawie miar R^2 i RMSE;
+ Zad 13.Sekcjê sprawdzaj¹c¹ czy na podstawie wartoœci innych kolumn mo¿na przewidzieæ liczbê elektronów i atomów oraz z jak¹ dok³adnoœci¹ mo¿na dokonaæ takiej predykcji; trafnoœæ regresji powinna zostaæ oszacowana na podstawie miar R^2 i RMSE;
 
-14.Sekcjê próbuj¹c¹ stworzyæ klasyfikator przewiduj¹cy wartoœæ atrybutu res_name (w tej sekcji nale¿y wykorzystaæ wiedzê z pozosta³ych punktów oraz wykonaæ dodatkowe czynnoœci, które mog¹ poprawiæ trafnoœæ klasyfikacji); klasyfikator powinien byæ wybrany w ramach optymalizacji parametrów na zbiorze waliduj¹cym; przewidywany b³¹d na danych z reszty populacji powinien zostaæ oszacowany na danych inne ni¿ ucz¹ce za pomoc¹ mechanizmu (stratyfikowanej!) oceny krzy¿owej lub (stratyfikowanego!) zbioru testowego.
+Zad 14.Sekcjê próbuj¹c¹ stworzyæ klasyfikator przewiduj¹cy wartoœæ atrybutu res_name (w tej sekcji nale¿y wykorzystaæ wiedzê z pozosta³ych punktów oraz wykonaæ dodatkowe czynnoœci, które mog¹ poprawiæ trafnoœæ klasyfikacji); klasyfikator powinien byæ wybrany w ramach optymalizacji parametrów na zbiorze waliduj¹cym; przewidywany b³¹d na danych z reszty populacji powinien zostaæ oszacowany na danych inne ni¿ ucz¹ce za pomoc¹ mechanizmu (stratyfikowanej!) oceny krzy¿owej lub (stratyfikowanego!) zbioru testowego.

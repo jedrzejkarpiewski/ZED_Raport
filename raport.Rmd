@@ -11,6 +11,10 @@ output:
 
 ## Wstêpne podsumowanie i wnioski.
 
+Na podstawie ni¿ej wykonanych æwiczeñ mo¿na by³o wyci¹gn¹æ kilka wniosków dotycz¹cych analizowanych ligandów.
+W badanej grupie wystêpuj¹ g³ównie ligandy proste zbudowane z ma³ej liczby atomów i elektronów. Liczba atomów jest wprost proporcjonalna do liczby elektronów dla wszystkich ligandów, co jest w pe³ni zrozumia³e i wynika z podstaw fizyki elementarnej. Widaæ to bardzo dobrze na histogramach przedstawiaj¹cych czêstoœæ wystêpowania bia³ek o okreœlonej liczbie cz¹steczek.
+Za pomoc¹ RStudio, wyznaczono równie¿ najczêœciej wystêpuj¹ce klasy ligandów, a tak¿e te których liczba atomów b¹dŸ elektronów najbardziej odbiega od normy.
+
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 library(dplyr)
 library(ggplot2)
@@ -23,13 +27,13 @@ library(gridExtra)
 search()
 ```
 ## Zad 2.Kod zapewniaj¹cy powtarzalnoœæ wyników przy ka¿dym uruchomieniu raportu na tych samych danych.
-```{r}
+```{r, cache=TRUE}
 set.seed(997)
 ```
 
 ## Zad 3.Kod pozwalaj¹cy wczytaæ dane z pliku.
 ```{r}
-data <- read.csv(file="input_data.txt",head=TRUE,sep=";")
+data <- read.csv(file="1000.txt",head=TRUE,sep=";")
 ```
 ## Zad 4. Kod usuwaj¹cy z danych wiersze posiadaj¹ce wartoœæ zmiennej res_name równ¹: “DA”,“DC”,“DT”, “DU”, “DG”, “DI”,“UNK”, “UNX”, “UNL”, “PR”, “PD”, “Y1”, “EU”, “N”, “15P”, “UQ”, “PX4” lub “NAN”.
 ```{r}
@@ -38,10 +42,15 @@ data <- filter(data, res_name != "DA", res_name != "DC",res_name != "DT", res_na
 ## Zad 5.Kod pozostawiaj¹cy tylko unikatowe pary wartoœci (pdb_code, res_name).
 ```{r}
 clean_data <- distinct(data, pdb_code, res_name)
-#clean_data <- distinct(data, pdb_code, res_name)
 #head(clean_data, 10)
 ```
 ## Zad 6.Krótkie podsumowanie wartoœci w ka¿dej kolumnie.
+```{r}
+knitr::kable(summary(data[, c("pdb_code", "res_name")]))
+```
+
+Ewentualnie, gdyby po¿¹dane by³o podsumowanie wartoœci w ka¿dej ka¿dej kolumnie danych PDB, nale¿a³oby odkomentowaæ poni¿sz¹ liniê, co skutkuje wypisaniem stosunkowo ma³o czytelnych informacji podsumowuj¹cych dane wejœciowe.
+
 ```{r}
 # knitr::kable(summary(data))
 # summary(data)

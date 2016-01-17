@@ -4,6 +4,10 @@ Jedrzej Karpiewski
 
 ## Wstępne podsumowanie i wnioski.
 
+Na podstawie niżej wykonanych ćwiczeń można było wyciągnąć kilka wniosków dotyczących analizowanych ligandów.
+W badanej grupie występują głównie ligandy proste zbudowane z małej liczby atomów i elektronów. Widać to bardzo dobrze na histogramach przedstawiających częstość występowania białek o określonej liczbie cząsteczek.
+Za pomocą RStudio, wyznaczono również najczęściej występujące klasy ligandów, a także te których liczba atomów bądź elektronów najbardziej odbiega od normy.
+
 
 
 ## Zad 1. Kod wyliczający wykorzystane biblioteki.
@@ -28,7 +32,7 @@ set.seed(997)
 ## Zad 3.Kod pozwalający wczytać dane z pliku.
 
 ```r
-data <- read.csv(file="input_data.txt",head=TRUE,sep=";")
+data <- read.csv(file="1000.txt",head=TRUE,sep=";")
 ```
 ## Zad 4. Kod usuwający z danych wiersze posiadające wartość zmiennej res_name równą: “DA”,“DC”,“DT”, “DU”, “DG”, “DI”,“UNK”, “UNX”, “UNL”, “PR”, “PD”, “Y1”, “EU”, “N”, “15P”, “UQ”, “PX4” lub “NAN”.
 
@@ -38,12 +42,27 @@ data <- filter(data, res_name != "DA", res_name != "DC",res_name != "DT", res_na
 ## Zad 5.Kod pozostawiający tylko unikatowe pary wartości (pdb_code, res_name).
 
 ```r
-clean_data <- data
-data2 <- distinct(data, pdb_code, res_name)
-#clean_data <- distinct(data, pdb_code, res_name)
+clean_data <- distinct(data, pdb_code, res_name)
 #head(clean_data, 10)
 ```
 ## Zad 6.Krótkie podsumowanie wartości w każdej kolumnie.
+
+```r
+knitr::kable(summary(data[, c("pdb_code", "res_name")]))
+```
+
+        pdb_code      res_name 
+---  ------------  ------------
+     4e8v   : 32   SO4    :109 
+     4ism   : 30   CA     : 82 
+     2ah9   : 26   ZN     : 81 
+     1sej   : 22   GOL    : 70 
+     3mue   : 20   MG     : 41 
+     3zia   : 19   BA     : 25 
+     (Other):840   (Other):581 
+
+Ewentualnie, gdyby pożądane było podsumowanie wartości w każdej każdej kolumnie danych PDB, należałoby odkomentować poniższą linię, co skutkuje wypisaniem stosunkowo mało czytelnych informacji podsumowujących dane wejściowe.
+
 
 ```r
 # knitr::kable(summary(data))
@@ -65,20 +84,20 @@ arrange(count_data, desc(n))
 ```
 
 ```
-## Source: local data frame [2,684 x 2]
+## Source: local data frame [169 x 2]
 ## 
 ##    res_name     n
 ##      (fctr) (int)
-## 1       SO4  4805
-## 2        MG  2459
-## 3        ZN  2307
-## 4       GOL  1944
-## 5        CA  1878
-## 6       NAG  1633
-## 7       HEM   881
-## 8       PO4   877
-## 9        CL   871
-## 10      EDO   688
+## 1       SO4    33
+## 2        CA    27
+## 3       GOL    23
+## 4        ZN    22
+## 5        MG    15
+## 6        CL    12
+## 7       NAG    12
+## 8       EDO    10
+## 9       PO4     9
+## 10      HEM     8
 ## ..      ...   ...
 ```
 
@@ -94,7 +113,7 @@ ggplot(atoms_data,
 ) + geom_bar(stat="identity") + xlab("Liczba atomów") + ylab("Krotność występowania") 
 ```
 
-![](raport_files/figure-html/unnamed-chunk-10-1.png)\
+![](raport_files/figure-html/unnamed-chunk-11-1.png)\
 
 ```r
   #+
@@ -110,7 +129,7 @@ ggplot(electrons_data,
 ) + geom_bar(stat="identity") + xlab("Liczba elektronów") + ylab("Krotność występowania") 
 ```
 
-![](raport_files/figure-html/unnamed-chunk-10-2.png)\
+![](raport_files/figure-html/unnamed-chunk-11-2.png)\
 
 ```r
   #+
@@ -149,7 +168,7 @@ grid.arrange(density_electron_plot, empty_plot, density_both_plot, density_atom_
                  heights=c(1, 4))
 ```
 
-![](raport_files/figure-html/unnamed-chunk-11-1.png)\
+![](raport_files/figure-html/unnamed-chunk-12-1.png)\
 
 ## Zad 11.Tabelę pokazującą 10 klas z największą niezgodnością liczby atomów (local_res_atom_non_h_count vs dict_atom_non_h_count) i tabelę pokazującą 10 klas z największą niezgodnością liczby elektronów (local_res_atom_non_h_electron_sum vs dict_atom_non_h_electron_sum;).
 
@@ -170,16 +189,16 @@ Table: Tabela przedstawiająca 10 klas z największą niezgodnością liczby ato
 
 Nazwa ligandu    Średnia różnica od wartości oczekiwanej   Odchylenie standardowe
 --------------  ----------------------------------------  -----------------------
-PEU                                             66.50000                 66.54698
-PC1                                             33.33333                 35.76777
-CPQ                                             33.00000                 33.00000
-JEF                                             33.00000                 33.00000
-VV7                                             33.00000                 33.00000
-CDL                                             24.77778                 32.90897
-M0E                                             32.00000                 32.00000
-PTY                                             31.00000                 31.00000
-LI1                                             29.50000                 29.60574
-IP9                                             27.00000                 27.00000
+UTP                                            16.000000                16.000000
+CPS                                             6.000000                 6.000000
+EPE                                             3.333333                 5.773503
+NDP                                             1.600000                 3.577709
+ATP                                             0.800000                 1.788854
+AAL                                             1.000000                 1.000000
+ABA                                             1.000000                 1.000000
+BGC                                             1.000000                 1.000000
+BRU                                             1.000000                 1.000000
+BSA                                             1.000000                 1.000000
 
 
 ```r
@@ -198,16 +217,16 @@ Table: Tabela przedstawiająca 10 klas z największą niezgodnością liczby ele
 
 Nazwa ligandu    Średnia różnica od wartości oczekiwanej   Odchylenie standardowe
 --------------  ----------------------------------------  -----------------------
-PEU                                             446.5000                 446.7315
-PC1                                             217.0000                 234.9135
-CPQ                                             225.0000                 225.0000
-VV7                                             224.0000                 224.0000
-CDL                                             170.2642                 223.7030
-PE3                                             201.0000                 215.7452
-JEF                                             213.0000                 213.0000
-M0E                                             196.0000                 196.0000
-PEF                                             188.0000                 188.0000
-PTY                                             186.0000                 186.0000
+UTP                                            108.00000                108.00000
+CPS                                             52.00000                 52.00000
+EPE                                             21.33333                 36.95042
+NDP                                             10.20000                 22.80789
+ATP                                              7.80000                 17.44133
+CPT                                             17.00000                 17.00000
+AAL                                              8.00000                  8.00000
+ABA                                              8.00000                  8.00000
+BGC                                              8.00000                  8.00000
+BRU                                              8.00000                  8.00000
 
 ## Zad 12.Sekcję pokazującą rozkład wartości wszystkich kolumn zaczynających się od part_01 z zaznaczeniem (graficznym i liczbowym) średniej wartości.
 
